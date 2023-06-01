@@ -2,7 +2,7 @@
 
 namespace Banco\Modelo\Conta;
 
-class Conta
+abstract class Conta
 {
     private Titular $titular;
     protected float $saldo;
@@ -52,8 +52,6 @@ class Conta
         return self::$numeroDeContas;
     }
 
-    protected function percentualTarifa()
-    {
-        return 0.05;      
-    }
+    abstract protected function percentualTarifa();
+   
 }
