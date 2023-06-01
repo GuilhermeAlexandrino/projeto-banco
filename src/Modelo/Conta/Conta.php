@@ -5,7 +5,7 @@ namespace Banco\Modelo\Conta;
 class Conta
 {
     private Titular $titular;
-    private float $saldo;
+    protected float $saldo;
     public static $numeroDeContas = 0;
 
     public function __construct(Titular $titular)
@@ -31,24 +31,17 @@ class Conta
 
     public function sacar(float $valorSaque): void
     {
-        if ($valorSaque > $this->saldo) {
+        $tarifaSaque = $valorSaque * $this->percentualTarifa();
+        $valorSacado = $valorSaque + $tarifaSaque;
+        if ($valorSacado > $this->saldo) {
             echo "Saldo Insuficiente";
             return;
         }
 
-        $this->saldo -= $valorSaque;
+        $this->saldo -= $valorSacado;
     }
 
-    public function transferir(Conta $conta, float $valorTransferencia): void
-    {
-        if ($valorTransferencia > $this->saldo) {
-            echo "Saldo Insuficiente";
-            return;
-        }
-
-        $this->sacar($valorTransferencia);
-        $conta->depositar($valorTransferencia);
-    }
+    
     public function getSaldo(): float
     {
         return $this->saldo;
@@ -57,5 +50,10 @@ class Conta
     public static function getNumeroDeContas()
     {
         return self::$numeroDeContas;
+    }
+
+    protected function percentualTarifa()
+    {
+        return 0.05;      
     }
 }
