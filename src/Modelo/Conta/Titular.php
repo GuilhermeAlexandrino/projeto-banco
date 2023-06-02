@@ -2,11 +2,12 @@
 
 namespace Banco\Modelo\Conta;
 
+use Banco\Modelo\Autenticavel;
 use Banco\Modelo\Pessoa;
 use Banco\Modelo\Endereco;
 use Banco\Modelo\cpf;
 
-Class Titular extends Pessoa
+Class Titular extends Pessoa implements Autenticavel
 {
     private Endereco $endereco;
 
@@ -19,6 +20,11 @@ Class Titular extends Pessoa
     public function getEndereco()
     {
         return $this->endereco;
+    }
+
+    public function podeAutenticar(string $senha)
+    {
+        return $senha === 'abcd';   
     }
 
 }

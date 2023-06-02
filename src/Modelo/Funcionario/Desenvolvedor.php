@@ -7,6 +7,6 @@ class Desenvolvedor extends Funcionario
 {
     public function calculaBonificacao()
     {
-        return $this->getSalario() * 0.05;
+        return 500.0;
     }
 }
